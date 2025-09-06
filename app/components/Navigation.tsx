@@ -32,7 +32,7 @@ const Navigation = () => {
         mounted && scrolled
           ? "bg-white/95 backdrop-blur-lg shadow-lg border border-gray-200/50"
           : "bg-white/90 backdrop-blur-md shadow-md border border-gray-200/30"
-      } rounded-2xl`}
+      } rounded-4xl`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -78,7 +78,7 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ml-4">
+            <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-6 py-2.5 rounded-3xl text-sm font-medium transition-all duration-200 ml-4">
               Book
             </button>
           </div>
