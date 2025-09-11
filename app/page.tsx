@@ -1,9 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import tataCurvvImage from "./assets/tata-curvv.jpg";
 import EvecoStats from "./components/EvecoStats";
 import EvecoShinyCard from "./components/EvecoShinyCard";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function Home() {
+  const heroTitleRef = useRef(null);
+
+  useEffect(() => {
+    if (heroTitleRef.current) {
+      gsap.fromTo(
+        heroTitleRef.current,
+        { opacity: 0, scale: 0.95, y: 40 },
+        { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
+      );
+    }
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -27,7 +43,10 @@ export default function Home() {
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6 animate-fade-up">
+              <h1
+                ref={heroTitleRef}
+                className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6"
+              >
                 <span className="inline-block">Sustainable</span>
                 <span className="inline-block animate-gradient-shift">
                   Electric Mobility
