@@ -4,13 +4,84 @@ import Image from "next/image";
 import tataCurvvImage from "./assets/tata-curvv.jpg";
 import EvecoStats from "./components/EvecoStats";
 import EvecoShinyCard from "./components/EvecoShinyCard";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Zap, ArrowRight, Play, Sparkles, Car, Shield, Leaf } from "lucide-react";
 import gsap from "gsap";
+
+// Particle component for background effects
+const Particle = ({ delay = 0 }: { delay?: number }) => {
+  return (
+    <motion.div
+      className="absolute w-1 h-1 bg-green-400 rounded-full opacity-60"
+      initial={{ 
+        x: Math.random() * window.innerWidth,
+        y: window.innerHeight + 10,
+        scale: 0
+      }}
+      animate={{
+        y: -10,
+        scale: [0, 1, 0],
+        opacity: [0, 0.8, 0]
+      }}
+      transition={{
+        duration: Math.random() * 3 + 2,
+        delay: delay,
+        repeat: Infinity,
+        repeatDelay: Math.random() * 2
+      }}
+    />
+  );
+};
+
+// Floating 3D Car Component
+const FloatingCar = () => {
+  return (
+    <motion.div
+      className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block"
+      initial={{ opacity: 0, x: 100, rotateY: -30 }}
+      animate={{ 
+        opacity: 1, 
+        x: 0, 
+        rotateY: 0,
+        y: [-10, 10, -10]
+      }}
+      transition={{
+        opacity: { duration: 1, delay: 1.5 },
+        x: { duration: 1, delay: 1.5 },
+        rotateY: { duration: 1, delay: 1.5 },
+        y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+      }}
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      <div className="relative w-64 h-32 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-2xl backdrop-blur-sm border border-white/10 p-4 hover:scale-105 transition-transform duration-300">
+        <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-2xl animate-pulse" />
+        <Car className="w-12 h-12 text-green-400 mb-2" />
+        <div className="text-white text-sm font-medium">Electric Vehicle</div>
+        <div className="text-green-400 text-xs">100% Eco-Friendly</div>
+        <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full animate-ping" />
+        <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-400 rounded-full" />
+      </div>
+    </motion.div>
+  );
+};
 
 export default function Home() {
   const heroTitleRef = useRef(null);
+  const heroRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 300], [0, -50]);
+  const y2 = useTransform(scrollY, [0, 300], [0, -100]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
     if (heroTitleRef.current) {
       gsap.fromTo(
         heroTitleRef.current,
@@ -18,80 +89,218 @@ export default function Home() {
         { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
       );
     }
+    
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
-        {/* Full-screen background video */}
+      {/* Futuristic Hero Section */}
+      <section ref={heroRef} className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-green-900">
+        {/* Animated Background */}
         <div className="absolute inset-0">
+          {/* Video Background with Enhanced Overlay */}
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-40"
           >
             <source src="/bg2.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div className="absolute inset-0 bg-black/40"></div>
+          
+          {/* Dynamic Gradient Overlay */}
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-br from-black/60 via-blue-900/40 to-green-900/40"
+            style={{
+              background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(0, 255, 136, 0.1) 0%, rgba(0, 136, 255, 0.05) 25%, transparent 50%)`
+            }}
+          />
+          
+          {/* Cyber Grid Pattern */}
+          <div className="absolute inset-0 cyber-grid opacity-20" />
+          
+          {/* Floating Particles */}
+          <div className="particles">
+            {Array.from({ length: 50 }).map((_, i) => (
+              <Particle key={i} delay={i * 0.1} />
+            ))}
+          </div>
+          
+          {/* Holographic Elements */}
+          <motion.div
+            className="absolute top-20 left-20 w-32 h-32 border border-green-400/30 rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="absolute inset-4 border border-blue-400/30 rounded-full animate-pulse" />
+          </motion.div>
+          
+          <motion.div
+            className="absolute bottom-20 right-20 w-24 h-24 border border-blue-400/30 rounded-lg"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="absolute inset-2 border border-green-400/30 rounded-lg animate-pulse" />
+          </motion.div>
         </div>
 
-        {/* Content overlay */}
-        <div className="relative z-10 h-full flex items-center">
+        {/* Enhanced Content Overlay */}
+        <motion.div 
+          className="relative z-10 h-full flex items-center"
+          style={{ y: y1, opacity }}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="max-w-3xl">
-              <h1
-                ref={heroTitleRef}
-                className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6"
-              >
-                <span className="inline-block">Sustainable</span>
-                <span className="inline-block animate-gradient-shift">
-                  Electric Mobility
-                </span>
-                <span className="inline-block">for Everyone</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8 animate-fade-up animation-delay-800">
-                Transforming cities with 100% electric, sustainable and most
-                reliable mobility solutions. Experience the future of
-                transportation today.
-              </p>
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="max-w-3xl">
+                {/* Animated Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm border border-green-400/30 rounded-full px-4 py-2 mb-6 hover:scale-105 transition-transform duration-300"
+                >
+                  <Sparkles className="w-4 h-4 text-green-400 animate-pulse" />
+                  <span className="text-sm text-green-400 font-medium">Future of Mobility</span>
+                </motion.div>
+                
+                <motion.h1
+                  ref={heroTitleRef}
+                  className="text-5xl md:text-7xl font-bold leading-tight mb-6"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  <span className="block text-white">Sustainable</span>
+                  <span className="block bg-gradient-to-r from-green-400 via-blue-400 to-green-400 bg-clip-text text-transparent animate-gradient-shift">
+                    Electric Mobility
+                  </span>
+                  <span className="block text-white">for Everyone</span>
+                </motion.h1>
+                
+                <motion.p 
+                  className="text-xl md:text-2xl text-gray-300 leading-relaxed mb-8"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  Transforming cities with{" "}
+                  <span className="text-neon font-semibold">100% electric</span>,
+                  sustainable and most reliable mobility solutions. Experience the
+                  <span className="text-neon font-semibold"> future of transportation</span> today.
+                </motion.p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-up animation-delay-800">
-                <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-                  Book Your Ride
-                </button>
-                <button className="border-2 border-white text-white hover:bg-gradient-to-r hover:from-green-600 hover:to-blue-600 hover:border-transparent px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                  Learn More
-                </button>
-              </div>
+                {/* Enhanced CTA Buttons */}
+                <motion.div 
+                  className="flex flex-col sm:flex-row gap-4 mb-12"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 255, 136, 0.4)" }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group relative bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-400 hover:to-blue-400 text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 overflow-hidden"
+                  >
+                    <span className="relative z-10 flex items-center space-x-2">
+                      <Zap className="w-5 h-5" />
+                      <span>Book Your Ride</span>
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    </span>
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group glass-morphism border border-white/20 text-white hover:border-green-400/50 px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 hover:bg-white/10"
+                  >
+                    <span className="flex items-center space-x-2">
+                      <Play className="w-5 h-5" />
+                      <span>Watch Demo</span>
+                    </span>
+                  </motion.button>
+                </motion.div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 animate-fade-up animation-delay-800">
-                <div className="text-center animate-counter-up">
-                  <div className="text-3xl md:text-4xl font-bold text-green-400 hover:scale-110 transition-transform duration-300">
-                    100%
-                  </div>
-                  <div className="text-sm text-gray-300">Electric Fleet</div>
-                </div>
-                <div className="text-center animate-counter-up animation-delay-200">
-                  <div className="text-3xl md:text-4xl font-bold text-blue-400 hover:scale-110 transition-transform duration-300">
-                    50K+
-                  </div>
-                  <div className="text-sm text-gray-300">Happy Customers</div>
-                </div>
-                <div className="text-center animate-counter-up animation-delay-400">
-                  <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300">
-                    24/7
-                  </div>
-                  <div className="text-sm text-gray-300">Service Available</div>
-                </div>
+                {/* Enhanced Stats with Neon Effects */}
+                <motion.div 
+                  className="grid grid-cols-3 gap-6"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.6 }}
+                >
+                  {[
+                    { value: "100%", label: "Electric Fleet", icon: Leaf, color: "green" },
+                    { value: "50K+", label: "Happy Customers", icon: Sparkles, color: "blue" },
+                    { value: "24/7", label: "Service Available", icon: Shield, color: "gradient" }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      className="text-center group"
+                      whileHover={{ scale: 1.1, y: -5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                    >
+                      <div className="relative mb-2">
+                        <div className={`w-16 h-16 mx-auto rounded-full border-2 ${
+                          stat.color === 'green' ? 'border-green-400/30 bg-green-400/10' :
+                          stat.color === 'blue' ? 'border-blue-400/30 bg-blue-400/10' :
+                          'border-green-400/30 bg-gradient-to-r from-green-400/10 to-blue-400/10'
+                        } flex items-center justify-center mb-3 group-hover:border-green-400/60 transition-all duration-300`}>
+                          <stat.icon className={`w-6 h-6 ${
+                            stat.color === 'green' ? 'text-green-400' :
+                            stat.color === 'blue' ? 'text-blue-400' :
+                            'text-green-400'
+                          }`} />
+                        </div>
+                        <div className={`text-3xl md:text-4xl font-bold mb-1 ${
+                          stat.color === 'gradient' 
+                            ? 'bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent'
+                            : stat.color === 'green' ? 'text-green-400' : 'text-blue-400'
+                        } group-hover:animate-pulse`}>
+                          {stat.value}
+                        </div>
+                        <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                          {stat.label}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
               </div>
+              
+              {/* Floating 3D Car */}
+              <FloatingCar />
             </div>
           </div>
-        </div>
+        </motion.div>
+        
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2 }}
+        >
+          <motion.div
+            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+            animate={{ borderColor: ["rgba(255,255,255,0.3)", "rgba(0,255,136,0.6)", "rgba(255,255,255,0.3)"] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <motion.div
+              className="w-1 h-3 bg-green-400 rounded-full mt-2"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+          <p className="text-white/60 text-xs mt-2 text-center">Scroll to explore</p>
+        </motion.div>
       </section>
 
       {/* Features Section */}
@@ -447,11 +656,11 @@ export default function Home() {
 
               <div className="grid grid-cols-2 gap-6 text-center animate-fade-up animation-delay-600">
                 <div className="hover:scale-110 transition-transform duration-300">
-                  <div className="text-2xl font-bold text-green-400">4.8★</div>
+                  <div className="text-2xl font-bold text-green-400">Launching Soon</div>
                   <div className="text-sm text-gray-400">App Store Rating</div>
                 </div>
                 <div className="hover:scale-110 transition-transform duration-300">
-                  <div className="text-2xl font-bold text-green-400">1M+</div>
+                  <div className="text-2xl font-bold text-green-400">Launching Soon</div>
                   <div className="text-sm text-gray-400">Downloads</div>
                 </div>
               </div>

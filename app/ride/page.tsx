@@ -1,69 +1,227 @@
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Car, Zap, Clock, Star, ArrowRight, CheckCircle, Sparkles } from "lucide-react";
+
 export default function RidePage() {
+  const [selectedVehicle, setSelectedVehicle] = useState("go");
+  const [bookingStep, setBookingStep] = useState(1);
+
+  const vehicles = [
+    {
+      id: "go",
+      name: "Eveco Go",
+      icon: "🚗",
+      price: "₹8/km",
+      features: ["Compact electric vehicles", "AC & music system", "Perfect for city rides"],
+      gradient: "from-blue-500 to-blue-700",
+      popular: false
+    },
+    {
+      id: "prime",
+      name: "Eveco Prime",
+      icon: "🚙",
+      price: "₹12/km",
+      features: ["Spacious SUV vehicles", "Premium interiors", "Comfortable long journeys"],
+      gradient: "from-green-500 to-green-700",
+      popular: true
+    },
+    {
+      id: "rental",
+      name: "Eveco Rental",
+      icon: "🕐",
+      price: "₹199/hour",
+      features: ["2-12 hour packages", "Unlimited stops", "Flexible schedules"],
+      gradient: "from-blue-500 to-green-500",
+      popular: false
+    }
+  ];
+
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-green-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Ride with <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Eveco</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Experience premium electric mobility with our safe, comfortable, and eco-friendly rides. 
+    <div className="min-h-screen pt-20 bg-gradient-to-br from-gray-900 via-blue-900/20 to-green-900/20">
+      {/* Enhanced Hero Section */}
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 cyber-grid opacity-10" />
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-blue-400" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm border border-green-400/30 rounded-full px-4 py-2 mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Sparkles className="w-4 h-4 text-green-400 animate-pulse" />
+              <span className="text-sm text-green-400 font-medium">Premium Electric Rides</span>
+            </motion.div>
+            
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Ride with{" "}
+              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent animate-gradient-shift">
+                Eveco
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl text-gray-300 max-w-3xl mx-auto mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              Experience premium electric mobility with our{" "}
+              <span className="text-neon">safe, comfortable</span>, and eco-friendly rides.
               Book instantly and travel sustainably.
-            </p>
-            <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-200">
-              Book Now
-            </button>
-          </div>
+            </motion.p>
+            
+            <motion.button
+              className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-400 hover:to-blue-400 text-white px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 group"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0, 255, 136, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <span className="flex items-center space-x-2">
+                <Zap className="w-5 h-5" />
+                <span>Book Now</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+            </motion.button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Ride Types */}
-      <section className="py-20 bg-white">
+      {/* Interactive Vehicle Selection */}
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Choose Your Ride Type
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Choose Your{" "}
+              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                Ride Type
+              </span>
             </h2>
-            <p className="text-xl text-gray-600">
-              Different options for different needs - all 100% electric
+            <p className="text-xl text-gray-300">
+              Different options for different needs - all{" "}
+              <span className="text-neon font-semibold">100% electric</span>
             </p>
-          </div>
+          </motion.div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl">
-              <div className="text-4xl mb-4">🚗</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Eveco Go</h3>
-              <p className="text-gray-600 mb-6">Perfect for daily commutes and short trips around the city</p>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Compact electric vehicles</li>
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> AC & music system</li>
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Starting at ₹8/km</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl">
-              <div className="text-4xl mb-4">🚙</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Eveco Prime</h3>
-              <p className="text-gray-600 mb-6">Premium electric SUVs for comfortable longer journeys</p>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Spacious SUV vehicles</li>
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Premium interiors</li>
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Starting at ₹12/km</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gradient-to-br from-blue-50 to-green-100 p-8 rounded-2xl">
-              <div className="text-4xl mb-4">🕐</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Eveco Rental</h3>
-              <p className="text-gray-600 mb-6">Hourly rentals for multiple stops and flexible schedules</p>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> 2-12 hour packages</li>
-                <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> Unlimited stops</li>
-                <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> Starting at ₹199/hour</li>
-              </ul>
-            </div>
+            {vehicles.map((vehicle, index) => (
+              <motion.div
+                key={vehicle.id}
+                className={`relative p-8 rounded-2xl glass-morphism-dark neon-border cursor-pointer transition-all duration-500 ${
+                  selectedVehicle === vehicle.id 
+                    ? 'border-green-400/60 bg-gradient-to-br from-green-500/10 to-blue-500/10' 
+                    : 'hover:border-green-400/40'
+                }`}
+                onClick={() => setSelectedVehicle(vehicle.id)}
+                whileHover={{ 
+                  scale: 1.02, 
+                  y: -5,
+                  boxShadow: "0 20px 40px rgba(0, 255, 136, 0.2)"
+                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                {/* Popular Badge */}
+                {vehicle.popular && (
+                  <motion.div
+                    className="absolute -top-3 -right-3 bg-gradient-to-r from-green-400 to-blue-400 text-white px-3 py-1 rounded-full text-xs font-semibold"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.2, type: "spring", stiffness: 500 }}
+                  >
+                    <Star className="w-3 h-3 inline mr-1" />
+                    Popular
+                  </motion.div>
+                )}
+                
+                {/* Selection Indicator */}
+                <AnimatePresence>
+                  {selectedVehicle === vehicle.id && (
+                    <motion.div
+                      className="absolute top-4 right-4 w-6 h-6 bg-green-400 rounded-full flex items-center justify-center"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      exit={{ scale: 0, rotate: 180 }}
+                      transition={{ type: "spring", stiffness: 500 }}
+                    >
+                      <CheckCircle className="w-4 h-4 text-white" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
+                <div className="relative z-10">
+                  <motion.div 
+                    className="text-6xl mb-4 text-center"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    {vehicle.icon}
+                  </motion.div>
+                  
+                  <h3 className="text-2xl font-bold text-white mb-2 text-center">
+                    {vehicle.name}
+                  </h3>
+                  
+                  <div className="text-center mb-6">
+                    <span className={`text-2xl font-bold bg-gradient-to-r ${vehicle.gradient} bg-clip-text text-transparent`}>
+                      {vehicle.price}
+                    </span>
+                  </div>
+                  
+                  <ul className="space-y-3">
+                    {vehicle.features.map((feature, featureIndex) => (
+                      <motion.li 
+                        key={featureIndex}
+                        className="flex items-center text-gray-300 group"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.8 + index * 0.2 + featureIndex * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        <motion.span 
+                          className="text-green-400 mr-3 text-lg"
+                          whileHover={{ scale: 1.2, rotate: 360 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          ✓
+                        </motion.span>
+                        <span className="group-hover:text-white transition-colors duration-300">
+                          {feature}
+                        </span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+                
+                {/* Hover Effect Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
