@@ -43,14 +43,14 @@ export default function DriveWithUs() {
             
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
               <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">85%</h3>
-              <p className="text-gray-600 mb-4">Driver commission rate</p>
-              <p className="text-sm text-gray-500">Keep more of what you earn</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">₹10,000</h3>
+              <p className="text-gray-600 mb-4">Quarterly rewards</p>
+              <p className="text-sm text-gray-500">Complete 500+ trips per quarter</p>
             </div>
             
             <div className="bg-gradient-to-br from-green-50 to-blue-100 p-8 rounded-2xl text-center">
               <div className="text-4xl mb-4">🎆</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">₹5,000</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">₹2,000</h3>
               <p className="text-gray-600 mb-4">Weekly bonus potential</p>
               <p className="text-sm text-gray-500">Complete 50+ trips per week</p>
             </div>

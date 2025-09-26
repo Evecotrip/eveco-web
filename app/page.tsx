@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import tataCurvvImage from "./assets/tata-curvv.jpg";
+import tataCurvvImage2 from "./assets/tatata.jpg";
+import tataCurvvImage3 from "./assets/tataN.jpg";
+import tataCurvvImage4 from "./assets/gem.png";
+import zSEVImage from "./assets/mg-zsev.webp";
 import EvecoStats from "./components/EvecoStats";
 import EvecoShinyCard from "./components/EvecoShinyCard";
 import { useEffect, useRef, useState } from "react";
@@ -89,7 +93,7 @@ export default function Home() {
         { opacity: 1, scale: 1, y: 0, duration: 1, ease: "power2.out" }
       );
     }
-    
+   
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
@@ -99,6 +103,10 @@ export default function Home() {
       <section ref={heroRef} className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-green-900">
         {/* Animated Background */}
         <div className="absolute inset-0">
+
+         <Image src={tataCurvvImage3} fill alt="Tata Curvv" />
+          <div className="absolute inset-0 bg-black/40"></div>
+
           {/* Video Background with Enhanced Overlay */}
           <video
             autoPlay
@@ -145,6 +153,7 @@ export default function Home() {
           >
             <div className="absolute inset-2 border border-green-400/30 rounded-lg animate-pulse" />
           </motion.div>
+
         </div>
 
         {/* Enhanced Content Overlay */}
@@ -153,6 +162,49 @@ export default function Home() {
           style={{ y: y1, opacity }}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+
+            <div className="max-w-3xl">
+              <h1
+                ref={heroTitleRef}
+                className="text-5xl md:text-7xl font-bold text-white leading-tight mb-6"
+              >
+                <span className="inline-block">Sustainable</span>
+                <span className="inline-block animate-gradient-shift">
+                  Electric Mobility
+                </span>
+                <span className="inline-block">for Everyone</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-8 animate-fade-up animation-delay-800">
+                Transforming cities with 100% electric, sustainable and most
+                reliable mobility solutions. Experience the future of
+                transportation today.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-up animation-delay-800">
+                <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                  Book Your Ride
+                </button>
+                <button className="border-2 border-white text-white hover:bg-gradient-to-r hover:from-green-600 hover:to-blue-600 hover:border-transparent px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                  Learn More
+                </button>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-8 animate-fade-up animation-delay-800">
+                <div className="text-center animate-counter-up">
+                  <div className="text-3xl md:text-4xl font-bold text-green-400 hover:scale-110 transition-transform duration-300">
+                    100%
+                  </div>
+                  <div className="text-sm text-gray-300">Electric Fleet</div>
+                </div>
+               
+                <div className="text-center animate-counter-up animation-delay-400">
+                  <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300">
+                    24/7
+                  </div>
+                  <div className="text-sm text-gray-300">Service Available</div>
+                </div>
+
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="max-w-3xl">
                 {/* Animated Badge */}
@@ -377,8 +429,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Eveco Stats Bento Grid */}
+      {/* Eveco Stats Bento Grid 
       <EvecoStats />
+      */}
 
       {/* Services Section */}
       <section className="py-20 bg-gray-50">

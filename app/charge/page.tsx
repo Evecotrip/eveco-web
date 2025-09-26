@@ -32,6 +32,8 @@ export default function EvecoCharge() {
               Powering the future of electric mobility across the country
             </p>
           </div>
+
+          {/**
           
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
@@ -51,6 +53,8 @@ export default function EvecoCharge() {
               <div className="text-gray-600">Uptime Reliability</div>
             </div>
           </div>
+
+        */}
         </div>
       </section>
 
@@ -119,7 +123,7 @@ export default function EvecoCharge() {
                 <span className="text-2xl">🗺️</span>
               </div>
               <h3 className="text-lg font-semibold mb-2">Wide Network</h3>
-              <p className="text-gray-600">500+ charging stations across 25+ cities</p>
+              <p className="text-gray-600">Coming soon</p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
