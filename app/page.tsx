@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import tataCurvvImage from "./assets/tata-curvv.jpg";
+import tataCurvvImage2 from "./assets/tatata.jpg";
+import tataCurvvImage3 from "./assets/tataN.jpg";
+import tataCurvvImage4 from "./assets/gem.png";
+import zSEVImage from "./assets/mg-zsev.webp";
 import EvecoStats from "./components/EvecoStats";
 import EvecoShinyCard from "./components/EvecoShinyCard";
 import { useEffect, useRef } from "react";
@@ -26,16 +30,7 @@ export default function Home() {
       <section className="relative h-screen overflow-hidden">
         {/* Full-screen background video */}
         <div className="absolute inset-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/bg2.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+         <Image src={tataCurvvImage3} fill alt="Tata Curvv" />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
@@ -76,12 +71,7 @@ export default function Home() {
                   </div>
                   <div className="text-sm text-gray-300">Electric Fleet</div>
                 </div>
-                <div className="text-center animate-counter-up animation-delay-200">
-                  <div className="text-3xl md:text-4xl font-bold text-blue-400 hover:scale-110 transition-transform duration-300">
-                    50K+
-                  </div>
-                  <div className="text-sm text-gray-300">Happy Customers</div>
-                </div>
+               
                 <div className="text-center animate-counter-up animation-delay-400">
                   <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent hover:scale-110 transition-transform duration-300">
                     24/7
@@ -168,8 +158,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Eveco Stats Bento Grid */}
+      {/* Eveco Stats Bento Grid 
       <EvecoStats />
+      */}
 
       {/* Services Section */}
       <section className="py-20 bg-gray-50">
@@ -447,11 +438,11 @@ export default function Home() {
 
               <div className="grid grid-cols-2 gap-6 text-center animate-fade-up animation-delay-600">
                 <div className="hover:scale-110 transition-transform duration-300">
-                  <div className="text-2xl font-bold text-green-400">4.8★</div>
+                  <div className="text-2xl font-bold text-green-400">Launching Soon</div>
                   <div className="text-sm text-gray-400">App Store Rating</div>
                 </div>
                 <div className="hover:scale-110 transition-transform duration-300">
-                  <div className="text-2xl font-bold text-green-400">1M+</div>
+                  <div className="text-2xl font-bold text-green-400">Launching Soon</div>
                   <div className="text-sm text-gray-400">Downloads</div>
                 </div>
               </div>

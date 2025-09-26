@@ -39,7 +39,7 @@ export default function RidePage() {
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Compact electric vehicles</li>
                 <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> AC & music system</li>
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Starting at ₹8/km</li>
+                {/* <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Starting at ₹8/km</li> */}
               </ul>
             </div>
             
@@ -50,7 +50,7 @@ export default function RidePage() {
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Spacious SUV vehicles</li>
                 <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Premium interiors</li>
-                <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Starting at ₹12/km</li>
+                {/* <li className="flex items-center"><span className="text-green-600 mr-2">✓</span> Starting at ₹12/km</li> */}
               </ul>
             </div>
             
@@ -61,7 +61,7 @@ export default function RidePage() {
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> 2-12 hour packages</li>
                 <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> Unlimited stops</li>
-                <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> Starting at ₹199/hour</li>
+                {/* <li className="flex items-center"><span className="text-blue-600 mr-2">✓</span> Starting at ₹199/hour</li> */}
               </ul>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function RidePage() {
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* Pricing 
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -142,6 +142,7 @@ export default function RidePage() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Features */}
       <section className="py-20 bg-gray-50">
